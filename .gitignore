@@ -14,3 +14,4 @@ data/probe.rl*
 
 # Relate store lock/journal files
 data/*.rl-*
+.env

@@ -1,0 +1,53 @@
+{
+  "headers": {
+    "paypal-auth-algo": "SHA256withRSA",
+    "paypal-cert-url": "https://api.paypal.com/v1/notifications/certs/CERT-sbx-recorded-0000000000000003",
+    "paypal-transmission-id": "5f9a1c22-0b7d-4e6f-9a10-000000000003",
+    "paypal-transmission-sig": "recorded-sandbox-transmission-signature-000000000003",
+    "paypal-transmission-time": "2026-11-20T12:03:32Z"
+  },
+  "event": {
+    "id": "WH-SBX-000003",
+    "event_version": "1.0",
+    "create_time": "2026-11-20T12:03:31Z",
+    "resource_type": "capture",
+    "event_type": "PAYMENT.CAPTURE.COMPLETED",
+    "summary": "Payment completed for 42.00 USD",
+    "resource": {
+      "id": "7PL279541U471932Q",
+      "status": "COMPLETED",
+      "amount": {
+        "currency_code": "USD",
+        "value": "42.00"
+      },
+      "custom_id": "E2E-SBX-0002",
+      "final_capture": true,
+      "seller_protection": {
+        "status": "ELIGIBLE",
+        "protection_eligible": true,
+        "protection_eligibility_reason": "Eligible - Item not shipped yet"
+      },
+      "supplementary_data": {
+        "related_ids": {
+          "order_id": "3PL190127TN364716U"
+        }
+      },
+      "create_time": "2026-11-20T12:03:30Z",
+      "update_time": "2026-11-20T12:03:31Z",
+      "links": [
+        {
+          "href": "https://api-m.sandbox.paypal.com/v2/checkout/captures/7PL279541U471932Q",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    "links": [
+      {
+        "href": "https://developer.paypal.com/docs/api/webhooks/v1",
+        "rel": "related",
+        "method": "GET"
+      }
+    ]
+  }
+}

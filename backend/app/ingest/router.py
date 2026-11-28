@@ -1,12 +1,13 @@
 import re
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header
+from fastapi import APIRouter, Depends, Header, Request
 
 from app.deps import get_graph, require_service_role
 from app.errors import ApiError
 from app.graph.client import GraphClient
 from app.ingest import service
+from app.ingest.iso20022 import parse_message
 from app.ingest.models import (
     BankMessageIn,
     IngestResult,
@@ -56,3 +57,14 @@ async def post_paypal_event(body: PayPalEventIn, key: Key, graph: Graph) -> Inge
 @router.post("/bank-message", response_model=IngestResult)
 async def post_bank_message(body: BankMessageIn, key: Key, graph: Graph) -> IngestResult:
     return await service.ingest_bank_message(graph, key, body)
+
+
+@router.post("/bank-message-xml", response_model=IngestResult)
+async def post_bank_message_xml(request: Request, key: Key, graph: Graph) -> IngestResult:
+    """Read a raw ISO 20022 message (pacs.008, pacs.002 or camt.053).
+
+    The body is XML, not JSON. It is capped, parsed with defusedxml and read by
+    `parse_message`; then the Task 6 ingest service stores it.
+    """
+    message = parse_message(await request.body())
+    return await service.ingest_bank_message(graph, key, message)

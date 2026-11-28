@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Document [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+]>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"><FIToFICstmrCdtTrf><GrpHdr><MsgId>M-900099</MsgId><CreDtTm>2026-11-20T10:00:00Z</CreDtTm></GrpHdr><CdtTrfTxInf><PmtId><EndToEndId>E2E-XML-0099</EndToEndId><UETR>ffffffff-0000-4000-8000-000000000000</UETR></PmtId><IntrBkSttlmAmt Ccy="USD">1250.50</IntrBkSttlmAmt><Dbtr><Nm>&xxe;</Nm></Dbtr><Cdtr><Nm>Synthetic Creditor</Nm></Cdtr></CdtTrfTxInf></FIToFICstmrCdtTrf></Document>

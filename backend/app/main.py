@@ -14,6 +14,8 @@ from app.detect.router import router as detect_router
 from app.errors import install_error_handlers
 from app.graph.client import GraphClient, GraphError
 from app.graph.schema import apply_schema
+from app.ingest.paypal_client import PayPalClient
+from app.ingest.paypal_webhook import router as paypal_router
 from app.ingest.router import router as ingest_router
 from app.logging_utils import configure_logging
 from app.screening.router import router as screening_router
@@ -28,9 +30,14 @@ class Health(BaseModel):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Task 5: ONE GraphClient for the whole app; the schema goes through it."""
+    """Task 5: ONE GraphClient for the whole app; the schema goes through it.
+
+    Task 8: the PayPal client is made first. It refuses anything that is not
+    the PayPal sandbox, so the app stops instead of talking to production.
+    """
     configure_logging()
     settings = get_settings()
+    paypal = PayPalClient()
     Path(settings.relate_path).parent.mkdir(parents=True, exist_ok=True)
     client = GraphClient(
         settings.relate_path,
@@ -41,6 +48,7 @@ async def lifespan(app: FastAPI):
     try:
         await apply_schema(client)
         app.state.graph = client
+        app.state.paypal = paypal
         yield
     finally:
         await client.close()
@@ -56,6 +64,7 @@ install_error_handlers(app)
 for _router in (
     api_router,
     ingest_router,
+    paypal_router,
     screening_router,
     detect_router,
     decision_router,

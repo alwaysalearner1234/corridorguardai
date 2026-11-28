@@ -1,0 +1,48 @@
+{
+  "headers": {
+    "paypal-auth-algo": "SHA256withRSA",
+    "paypal-cert-url": "https://api.paypal.com/v1/notifications/certs/CERT-sbx-recorded-0000000000000001",
+    "paypal-transmission-id": "5f9a1c22-0b7d-4e6f-9a10-000000000001",
+    "paypal-transmission-sig": "recorded-sandbox-transmission-signature-000000000001",
+    "paypal-transmission-time": "2026-11-20T12:00:02Z"
+  },
+  "event": {
+    "id": "WH-SBX-000001",
+    "event_version": "1.0",
+    "create_time": "2026-11-20T12:00:01Z",
+    "resource_type": "checkout-order",
+    "event_type": "CHECKOUT.ORDER.APPROVED",
+    "summary": "A buyer approved a checkout order",
+    "resource": {
+      "id": "5O190127TN364715T",
+      "status": "APPROVED",
+      "intent": "CAPTURE",
+      "create_time": "2026-11-20T12:00:00Z",
+      "purchase_units": [
+        {
+          "reference_id": "default",
+          "custom_id": "E2E-SBX-0001",
+          "description": "Synthetic demo payment",
+          "amount": {
+            "currency_code": "USD",
+            "value": "125.50"
+          }
+        }
+      ],
+      "links": [
+        {
+          "href": "https://api-m.sandbox.paypal.com/v2/checkout/orders/5O190127TN364715T",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    "links": [
+      {
+        "href": "https://developer.paypal.com/docs/api/webhooks/v1",
+        "rel": "related",
+        "method": "GET"
+      }
+    ]
+  }
+}
